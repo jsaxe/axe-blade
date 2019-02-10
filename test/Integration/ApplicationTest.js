@@ -56,7 +56,7 @@ describe('Axe', function () {
 })
 
 
-var ServiceProvider = require('../../lib/Application/ServiceProvider')
+var ServiceProvider = require('../../src/Application/ServiceProvider')
 
 class FakeServiceProvider extends ServiceProvider {
 

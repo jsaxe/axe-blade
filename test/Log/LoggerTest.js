@@ -1,6 +1,6 @@
 'use strict'
 
-var Logger = require('../../lib/Log/Logger')
+var Logger = require('../../src/Log/Logger')
 
 
 describe('Logger', function () {

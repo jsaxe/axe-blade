@@ -2,8 +2,8 @@
 
 var expect = require('chai').expect;
 
-var Config = require('../../lib/Config/Config')
-var Application = require('../../lib/Application/Application')
+var Config = require('../../src/Config/Config')
+var Application = require('../../src/Application/Application')
 
 describe('Config', function () {
 

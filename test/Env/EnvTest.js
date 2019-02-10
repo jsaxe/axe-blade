@@ -2,8 +2,8 @@
 
 var expect = require('chai').expect;
 
-var Env = require('../../lib/Env/Env')
-var Application = require('../../lib/Application/Application')
+var Env = require('../../src/Env/Env')
+var Application = require('../../src/Application/Application')
 
 describe('Env', function () {
 

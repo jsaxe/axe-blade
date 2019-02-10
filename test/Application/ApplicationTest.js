@@ -2,7 +2,7 @@
 
 var expect = require('chai').expect;
 
-var app = new (require('../../lib/Application/Application'))
+var app = new (require('../../src/Application/Application'))
 var Boxa = require('boxa')
 
 describe('Application', function () {

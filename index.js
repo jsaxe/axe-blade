@@ -11,8 +11,8 @@
 /**
  * Bootstraping using the Demon Slayer Axe to get our application
  */
-var Application = require('./lib/Application/Application')
-var ServiceProvider = require('./lib/Application/ServiceProvider')
+var Application = require('./src/Application/Application')
+var ServiceProvider = require('./src/Application/ServiceProvider')
 
 /**
  * Finally trading blows (slashing with Demon Slayer Axe)

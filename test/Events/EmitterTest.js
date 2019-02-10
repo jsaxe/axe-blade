@@ -3,8 +3,8 @@
 var expect = require('chai').expect;
 
 var EventEmitter2 = require('eventemitter2').EventEmitter2
-var Emitter = require('../../lib/Events/Emitter')
-var Application = new (require('../../lib/Application/Application'))()
+var Emitter = require('../../src/Events/Emitter')
+var Application = new (require('../../src/Application/Application'))()
 
 describe('Emitter', function () {
 

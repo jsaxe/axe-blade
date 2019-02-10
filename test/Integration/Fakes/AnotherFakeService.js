@@ -1,5 +1,5 @@
 
-var ServiceProvider = require('../../../lib/Application/ServiceProvider')
+var ServiceProvider = require('../../../src/Application/ServiceProvider')
 
 class AnotherFakeService extends ServiceProvider {
 
