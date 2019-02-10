@@ -7,7 +7,7 @@
 
 [Axe Blade](https://jsaxe.com/blade) does the bootstrapping job for the Axe apps.
 
-<img src="https://i.imgur.com/ZGfRrDz.png" width="200px" align="right" hspace="30px" vspace="100px">
+<img src="https://i.imgur.com/7AO4FyX.png" width="200px" align="right" hspace="30px" vspace="100px">
 
 ## Features
 
