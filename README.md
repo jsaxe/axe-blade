@@ -1,7 +1,6 @@
 # Axe Blade 🔥
 > Core ignition engine for Axe apps, where booting happens!
 
-[![Node Version][node-image]][npm-url]
 [![NPM Version][npm-image]][npm-url]
 [![Build Status][travis-image]][travis-url]
 [![Coveralls][coveralls-image]][coveralls-url]
@@ -67,8 +66,6 @@ To prevent this, let's all commit to commenting. 😉
 Robin Panta (Hacktivistic) 😎  &nbsp; [GitHub](https://github.com/hacktivistic) | [Blog](https://robinpanta.com)
 > I prefer `yarn` over `npm`
 
-
-[node-image]: https://img.shields.io/node/v/axe-blade.svg?style=flat-square
 [npm-image]: https://img.shields.io/npm/v/axe-blade.svg?style=flat-square
 [npm-url]: https://npmjs.org/package/axe-blade
 [travis-image]: https://travis-ci.org/jsaxe/axe-blade.svg?branch=master
