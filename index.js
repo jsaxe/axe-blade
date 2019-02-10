@@ -1,5 +1,5 @@
 /**
- * axe-engine
+ * axe-blade
  * Copyright(c) 2018
  * MIT Licensed
  *
@@ -9,7 +9,7 @@
 'use strict'
 
 /**
- * Bootstraping using the Demon Slayer Axe to get our application
+ * Bootstraping using the Demon Slayer Blade to get our application
  */
 var Application = require('./src/Application/Application')
 var ServiceProvider = require('./src/Application/ServiceProvider')

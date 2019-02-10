@@ -1,4 +1,4 @@
-# Axe Engine 🔥
+# Axe Blade 🔥
 > Core ignition engine for Axe apps, where booting happens!
 
 [![Node Version][node-image]][npm-url]
@@ -6,7 +6,7 @@
 [![Build Status][travis-image]][travis-url]
 [![Coveralls][coveralls-image]][coveralls-url]
 
-[Axe Engine](https://jsaxe.com/engine) does the bootstrapping job for the Axe apps.
+[Axe Blade](https://jsaxe.com/blade) does the bootstrapping job for the Axe apps.
 
 <img src="https://i.imgur.com/ZGfRrDz.png" width="200px" align="right" hspace="30px" vspace="100px">
 
@@ -23,11 +23,11 @@
 ## Installation
 You can install the package from npm.
 ```bash
-npm i --save axe-engine
+npm i --save axe-blade
 ```
 ## Node
 
-Axe Engine is supposed to run on platforms with `Node.js >=0.10.0`
+Axe Blade is supposed to run on platforms with `Node.js >=0.10.0`
 
 ## Development
 
@@ -68,10 +68,10 @@ Robin Panta (Hacktivistic) 😎  &nbsp; [GitHub](https://github.com/hacktivistic
 > I prefer `yarn` over `npm`
 
 
-[node-image]: https://img.shields.io/node/v/axe-engine.svg?style=flat-square
-[npm-image]: https://img.shields.io/npm/v/axe-engine.svg?style=flat-square
-[npm-url]: https://npmjs.org/package/axe-engine
-[travis-image]: https://travis-ci.org/jsaxe/axe-engine.svg?branch=master
-[travis-url]: https://travis-ci.org/jsaxe/axe-engine
-[coveralls-image]: https://coveralls.io/repos/github/jsaxe/axe-engine/badge.svg?branch=master
-[coveralls-url]: https://coveralls.io/github/jsaxe/axe-engine?branch=master
+[node-image]: https://img.shields.io/node/v/axe-blade.svg?style=flat-square
+[npm-image]: https://img.shields.io/npm/v/axe-blade.svg?style=flat-square
+[npm-url]: https://npmjs.org/package/axe-blade
+[travis-image]: https://travis-ci.org/jsaxe/axe-blade.svg?branch=master
+[travis-url]: https://travis-ci.org/jsaxe/axe-blade
+[coveralls-image]: https://coveralls.io/repos/github/jsaxe/axe-blade/badge.svg?branch=master
+[coveralls-url]: https://coveralls.io/github/jsaxe/axe-blade?branch=master
