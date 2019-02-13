@@ -17,6 +17,9 @@
   "files": [
     "src"
   ],
+  "engines": {
+    "node": ">=7.10.1"
+  },
   "author": "Robin Panta <hacktivistic@gmail.com>",
   "license": "MIT",
   "bugs": {
