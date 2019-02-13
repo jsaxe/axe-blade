@@ -2,7 +2,7 @@
 
 var expect = require('chai').expect;
 
-var app = new (require('../../src/Application/Application'))
+var app = new (require('../../src/Application/Application'))('./')
 var Boxa = require('boxa')
 
 describe('Application', function () {
@@ -15,64 +15,16 @@ describe('Application', function () {
 		expect(app.isTesting()).to.equal(true)
 	})
 
+	it('should be in debug environment', function () {
+		expect(app.isDebugging()).to.equal(false)
+	})
+
 	it('should be not be in local environment', function () {
 		expect(app.isLocal()).to.equal(false)
 	})
 
 	it('should be not be in production environment', function () {
 		expect(app.isProduction()).to.equal(false)
-	})
-
-	describe('_registerGlobals()', function () {
-
-		it('should register global functions `use` and `map`', function () {
-
-			app._registerGlobals()
-
-		})
-
-		describe('map()', function () {
-
-			it('should map content into Container', function () {
-
-				var data = {
-					name: 'Robin'
-				}
-
-				map('foo', data)
-
-			})
-
-		})
-
-		describe('use()', function () {
-
-			it('should resolve mapped content from Container', function () {
-
-				expect(use('foo').name).to.equal('Robin')
-
-			})
-
-			it('should resolve registered content from Container', function () {
-
-				app.register('bar', () => {
-					return {
-						name: 'Hacktivistic'
-					}
-				})
-
-				expect(use('bar').name).to.equal('Hacktivistic')
-
-			})
-
-			it('should require node_module when no content is registered or mapped', function () {
-
-				expect(use('boxa')).to.equal(Boxa)
-
-			})
-
-		})
-
 	})
 
 	describe('publicPath()', function () {
@@ -125,6 +77,15 @@ describe('Application', function () {
 		it('should return path string to resources relative to base path', function () {
 			expect(app.resourcesPath()).to.equal(require('path').resolve('./resources'))
 			expect(app.resourcesPath('img')).to.equal(require('path').resolve('./resources/img'))
+		})
+
+	})
+
+	describe('routesPath()', function () {
+
+		it('should return path string to routes relative to base path', function () {
+			expect(app.routesPath()).to.equal(require('path').resolve('./routes'))
+			expect(app.routesPath('socket')).to.equal(require('path').resolve('./routes/socket'))
 		})
 
 	})
