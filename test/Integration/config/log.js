@@ -1,5 +1,4 @@
 'use strict'
-var app = use('app')
 
 module.exports = {
 
@@ -12,7 +11,7 @@ module.exports = {
 		},
 
 		file: {
-			filename: app.storagePath('logs/pico.log')
+			filename: app().storagePath('logs/pico.log')
 		}
 
 	}
