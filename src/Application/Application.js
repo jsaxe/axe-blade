@@ -8,14 +8,13 @@
 // External Dependencies
 var Boxa = require('boxa')
 var path = require('path')
-var _ = require('lodash')
 
-// Internal Dependencies
-var EventProvider = require('../Events/Event')
-var LogProvider = require('../Log/Log')
-var EnvProvider = require('../Env/EnvProvider')
-var ConfigProvider = require('../Config/ConfigProvider')
+// Helper
+var Helper = require('./helper')
 
+/**
+ * Blade Class
+ */
 class Blade extends Boxa {
 
 	/**
@@ -26,12 +25,17 @@ class Blade extends Boxa {
 	constructor (basePath = '') {
 		super()
 
-		this._registerPaths(basePath)
+		// Register Paths
+		Helper.registerPaths(basePath)
 
+		// Load Core Service Providers
+		Helper.registerCoreProviders(this)
+
+		// Map Application to Container
 		Blade.setInstance(this)
-		this.map('app', this)
 
-		this._loadCoreProviders()
+		// Global Helper Methods
+		Helper.registerGlobals(this)
 	}
 
 	/**
@@ -44,9 +48,8 @@ class Blade extends Boxa {
 	 */
 	slash (appdata = {}, callback) {
 
-		this._registerGlobals()
-
-		this._registerProviders(appdata)
+		// Load Service Providers
+		Helper.registerProviders(appdata, this)
 
 		this.resolve('Axe/Events').fire('Application_Booting')
 
@@ -65,18 +68,7 @@ class Blade extends Boxa {
 	 * @public
 	 */
 	isLocal () {
-		return process.env.APP_ENV === 'dev' || process.env.NODE_ENV === 'dev'
-	}
-
-	/**
-	 * Checks if application is running test
-	 *
-	 * @returns {Boolean}
-	 *
-	 * @public
-	 */
-	isTesting () {
-		return process.env.NODE_ENV === 'test'
+		return process.env.APP_ENV === 'dev' || process.env.APP_ENV === 'develop' || process.env.NODE_ENV === 'dev'
 	}
 
 	/**
@@ -91,182 +83,113 @@ class Blade extends Boxa {
 	}
 
 	/**
-	 * Registers framework paths
-	 * @private
+	 * Checks if application is running test
 	 *
-	 * @param {string} basePath
-	 */
-	_registerPaths (basePath) {
-
-		this.__basePath = path.resolve(_.trimEnd(basePath, '\/'))
-
-		this.map('axe.path', this.basePath())
-		this.map('axe.path.config', this.basePath('config'))
-		this.map('axe.path.public', this.basePath('public'))
-		this.map('axe.path.system', this.basePath('system'))
-		this.map('axe.path.storage', this.basePath('storage'))
-		this.map('axe.path.app', this.basePath('app'))
-		this.map('axe.path.resources', this.basePath('resources'))
-
-	}
-
-	/**
-	 * Returns path string relate to base path
-	 *
-	 * @param {string} dir
+	 * @returns {Boolean}
 	 *
 	 * @public
 	 */
-	basePath (dir = '') {
-		return path.join(this.__basePath, dir)
+	isTesting () {
+		return process.env.NODE_ENV === 'test'
 	}
 
 	/**
-	 * Returns path string relate to public path
+	 * Checks if application has debug environment
 	 *
-	 * @param {string} dir
+	 * @returns {Boolean}
 	 *
 	 * @public
 	 */
-	publicPath (dir = '') {
-		return path.join(this.use('axe.path.public'), dir)
+	isDebugging () {
+		return process.env.NODE_ENV === 'debug'
 	}
 
 	/**
-	 * Returns path string relate to system path
+	 * Returns path string relative to base path
 	 *
-	 * @param {string} dir
+	 * @param {Array} paths
 	 *
 	 * @public
 	 */
-	systemPath (dir = '') {
-		return path.join(this.use('axe.path.system'), dir)
+	basePath (...args) {
+		return path.join(Helper.basePath, ...args)
 	}
 
 	/**
-	 * Returns path string relate to config path
+	 * Returns path string relative to public path
 	 *
-	 * @param {string} dir
+	 * @param {Array} paths
 	 *
 	 * @public
 	 */
-	configPath (dir = '') {
-		return path.join(this.use('axe.path.config'), dir)
+	publicPath (...args) {
+		return path.join(this.basePath('public'), ...args)
 	}
 
 	/**
-	 * Returns path string relate to storage path
+	 * Returns path string relative to system path
 	 *
-	 * @param {string} dir
+	 * @param {Array} paths
 	 *
 	 * @public
 	 */
-	storagePath (dir = '') {
-		return path.join(this.use('axe.path.storage'), dir)
+	systemPath (...args) {
+		return path.join(this.basePath('system'), ...args)
 	}
 
 	/**
-	 * Returns path string relate to app path
+	 * Returns path string relative to config path
 	 *
-	 * @param {string} dir
-	 *
-	 * @public
-	 */
-	appPath (dir = '') {
-		return path.join(this.use('axe.path.app'), dir)
-	}
-
-	/**
-	 * Returns path string relate to resources path
-	 *
-	 * @param {string} dir
+	 * @param {Array} paths
 	 *
 	 * @public
 	 */
-	resourcesPath (dir = '') {
-		return path.join(this.use('axe.path.resources'), dir)
+	configPath (...args) {
+		return path.join(this.basePath('config'), ...args)
 	}
 
 	/**
-	 * Loads core providers for booting framapp.registerRoutes()ework
-	 * @private
-	 */
-	_loadCoreProviders () {
-		for (var provider of [ EnvProvider, ConfigProvider, EventProvider, LogProvider ]) {
-			(new provider(this)).register()
-		}
-	}
-
-	/**
-	 * Registers the service providers defined in appdata
-	 * @private
+	 * Returns path string relative to storage path
 	 *
-	 * @param {AppData} appdata
+	 * @param {Array} paths
+	 *
+	 * @public
 	 */
-	_registerProviders (appdata) {
-
-		if (!appdata.providers) {
-			throw Error('Invalid AppData Provided. AppData doesn\'t implement `providers` property.')
-		}
-		var providers = appdata.providers
-
-		if (appdata.cliProviders) {
-			providers = providers.concat(appdata.cliProviders)
-		}
-
-		// Registering Providers
-		providers.forEach(provider => {
-			if (typeof provider !== 'function'){
-				var providerPath = this.basePath(provider) + '.js'
-				if (require('fs').existsSync(providerPath)) {
-					provider = this.basePath(provider)
-				}
-				provider = require(provider)
-			}
-
-			var obj = new provider(this)
-			if (typeof obj.register === 'function')
-				obj.register()
-		})
-
-		// Regisering Aliases
-		_.each(appdata.aliases, (provider, alias) => {
-			this.alias(alias, provider)
-		})
-
+	storagePath (...args) {
+		return path.join(this.basePath('storage'), ...args)
 	}
 
 	/**
-	 * Registers global functions
-	 * @private
+	 * Returns path string relative to app path
+	 *
+	 * @param {Array} paths
+	 *
+	 * @public
 	 */
-	_registerGlobals () {
+	appPath (...args) {
+		return path.join(this.basePath('app'), ...args)
+	}
 
-		// This is the function that's going to oil up the whole framework
-		// ==================================================================
-		// |
-		// | Resolves registered/mapped providers. If provider is not mapped
-		// | or registered, node module shall be imported.
-		// |
-		// ==================================================================
-		global.use = function (provider, params = []) {
-			var provider = this.resolveAlias(provider)
-			if (this.isRegistered(provider) || this.isMapped(provider)) {
-				return this.use(provider, params)
-			}else{
-				return require(provider)
-			}
-		}.bind(this)
+	/**
+	 * Returns path string relative to resources path
+	 *
+	 * @param {Array} paths
+	 *
+	 * @public
+	 */
+	resourcesPath (...args) {
+		return path.join(this.basePath('resources'), ...args)
+	}
 
-		// ==================================================================
-		// |
-		// | Maps the content to given provider in the app container.
-		// |
-		// ==================================================================
-		global.map = function (provider, content) {
-			this.map(provider, content)
-		}.bind(this)
-
+	/**
+	 * Returns path string relative to routes path
+	 *
+	 * @param {Array} paths
+	 *
+	 * @public
+	 */
+	routesPath (...args) {
+		return path.join(this.basePath('routes'), ...args)
 	}
 
 }
