@@ -8,7 +8,7 @@ var Application = require('../../src/Application/Application')
 describe('Config', function () {
 
 	var app = new Application('test/Config/TestBasePath')
-	var config = new Config(app.use('axe.path.config'))
+	var config = new Config(app.configPath())
 
 	it('should preload console files from config dir', function () {
 
