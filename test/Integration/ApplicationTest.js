@@ -4,12 +4,15 @@ var expect = require('chai').expect;
 
 var Axe = require('../../').Application;
 
-var app = new Axe('test/Integration')
-
+let axe;
 describe('Axe', function () {
 
+	beforeEach(() => {
+		axe = new Axe('test/Integration')
+	})
+
 	it ('should not slash without AppData', function () {
-		expect( () => app.slash()).to.throw()
+		expect( () => axe.slash()).to.throw()
 	})
 
 
@@ -43,12 +46,12 @@ describe('Axe', function () {
 		}
 
 		// without callback
-		app.slash(fakeKernel)
+		axe.slash(fakeKernel)
 		// with callback
-		app.slash(fakeKernelWithOutCLI, () => {
-			use('Axe/Events').fire('Completed')
-			use('Axe/Log')
-			use('Axe/Env')
+		axe.slash(fakeKernelWithOutCLI, () => {
+			app('Axe/Events').fire('Completed')
+			app('Axe/Log')
+			app('Axe/Env')
 		})
 
 	})
@@ -64,7 +67,7 @@ class FakeServiceProvider extends ServiceProvider {
 		describe('FakeServiceProvider', function () {
 			it('should have app instance', function () {
 
-				expect(this.app).to.deep.equal(app)
+				expect(this.app).to.deep.equal(axe)
 
 			}.bind(this)) // Required, because `it` has scope of `this` to TestSuite
 		}.bind(this))  // Required, because `describe` has scope of `this` to TestSuite
