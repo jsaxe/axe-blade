@@ -5,6 +5,7 @@
 [![NPM Version][npm-image]][npm-url]
 [![Build Status][travis-image]][travis-url]
 [![Coveralls][coveralls-image]][coveralls-url]
+[![Dependencies][dependencies]][david-dm]
 
 [Axe Blade](https://jsaxe.com/blade) does the bootstrapping job for the Axe apps.
 
@@ -74,3 +75,5 @@ Robin Panta (Hacktivistic) 😎  &nbsp; [GitHub](https://github.com/hacktivistic
 [travis-url]: https://travis-ci.org/jsaxe/axe-blade
 [coveralls-image]: https://coveralls.io/repos/github/jsaxe/axe-blade/badge.svg?branch=master
 [coveralls-url]: https://coveralls.io/github/jsaxe/axe-blade?branch=master
+[dependencies]: https://david-dm.org/jsaxe/axe-blade/status.svg
+[david-dm]: https://david-dm.org/jsaxe/axe-blade
