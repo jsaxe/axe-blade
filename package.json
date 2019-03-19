@@ -36,7 +36,7 @@
     "nyc": "^13.1.0"
   },
   "dependencies": {
-    "boxa": "^2.1.2",
+    "boxa": "https://github.com/jsaxe/boxa",
     "dotenv": "^6.2.0",
     "eventemitter2": "^5.0.1",
     "lodash": "^4.17.11",
